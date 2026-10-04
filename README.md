@@ -16,12 +16,16 @@ each, and how they map to the OWASP Top 10 (2025).
 
 > **Note on methodology:** the assessment was performed **mainly through the web browser** —
 > using the address bar and the browser Developer Tools (F12) Console, Network and Storage
-> panels. No external proxy (such as Burp Suite) and no custom Python tooling were required.
-> The only "code" involved is the attack payloads and a short JavaScript Console command,
-> which are included inline in [`SOLUTIONS.md`](SOLUTIONS.md).
+> panels. No external proxy (such as Burp Suite) and no custom tooling were required. The
+> only "code" involved is the attack payloads and short JavaScript Console commands.
 
-The detailed walkthrough of every challenge — steps, payloads and the Console snippet —
-is in **[`SOLUTIONS.md`](SOLUTIONS.md)**.
+## Files in this repository
+| File | What it is |
+|------|------------|
+| [`SOLUTIONS.md`](SOLUTIONS.md) | Detailed walkthrough of all 13 challenges — Vulnerability, Steps, Payload/Command, Impact, Fix |
+| [`payloads.txt`](payloads.txt) | Every attack string used, grouped by OWASP category |
+| [`exploit_snippets.js`](exploit_snippets.js) | The browser-Console JavaScript used (IDOR request, basket enumeration, SQLi login, token helper) |
+| [`poc_sqli_login.py`](poc_sqli_login.py) | Optional proof-of-concept: the SQL-injection login bypass as a runnable script |
 
 (The written report and screenshots are submitted separately in the report document and
 are not part of this repository.)
@@ -57,6 +61,17 @@ npm start              # open http://localhost:3000
 | 13 | Five-Star Feedback | A01 Broken Access Control | GM |
 
 Coverage: 5 of the OWASP Top 10 (2025) categories, led by Broken Access Control and Injection.
+
+## Repository structure
+```
+juice-shop-repo/
+├── README.md              # this file
+├── SOLUTIONS.md           # detailed per-challenge walkthrough
+├── payloads.txt           # all attack strings
+├── exploit_snippets.js    # browser-console exploit commands
+├── poc_sqli_login.py      # optional Python PoC
+└── .gitignore
+```
 
 ## Disclaimer
 All testing was performed on a **self-hosted, isolated instance** of OWASP Juice Shop for

