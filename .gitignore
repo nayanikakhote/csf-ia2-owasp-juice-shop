@@ -1,0 +1,10 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*~
+.vscode/
+.idea/
+
+# Do not commit the Juice Shop source itself (cloned separately)
+juice-shop/
+node_modules/
